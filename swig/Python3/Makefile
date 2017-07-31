@@ -33,11 +33,12 @@ ifeq ($(shell uname), Darwin)
   LDLIBS := -lm -ldl -framework Accelerate
   SNOWBOYDETECTLIBFILE = $(TOPDIR)/lib/osx/libsnowboy-detect.a
 else
-  CXX := g++
+  CXX := arm-poky-linux-gnueabi-gcc
   PYINC := $(shell python3-config --cflags)
   PYLIBS := $(shell python3-config --ldflags)
   SWIGFLAGS := -shared
-  CXXFLAGS += -std=c++0x
+  CXXFLAGS += -std=c++0x -lstdc++ -shared-libgcc
+  # -xc++ -lstdc++ -shared-libgcc
   # Make sure you have Atlas installed. You can statically link Atlas if you
   # would like to be able to move the library to a machine without Atlas.
   LDLIBS := -lm -ldl -lf77blas -lcblas -llapack_atlas -latlas
